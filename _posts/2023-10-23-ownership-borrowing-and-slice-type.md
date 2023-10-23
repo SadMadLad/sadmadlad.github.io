@@ -1,11 +1,12 @@
 ---
+title: 'Ownership, Borrowing and Slice Type'
 categories: [Programming, Rust]
 tag: [Rust, Programming, Conceptual, Notes]
 ---
 
-Rust inherently has no garbage collector management. Instead, it relies on an important concept of **ownership**.
+Rust inherently has no garbage collector. Instead, it relies on an important concept of **ownership**.
 
-> Before moving onto ownership, it is important to discuss the difference between **heap** and **stack**. **Stack** is organized memory in which data is pushed and popped from the stack. It follows the *LIFO* (Last In First Out) sequence. Stack is *faster* and data types like integers, characters are stored on it. **Heap** is less organized when it comes to storing data. It is *slower* than stack. When it comes to storing data in heap, it needs to know how much space does it need to free before storing the variable on the go, which is why it is slower. It needs to keep the pointer for memory too. Storing data types like vectors requires heaps.
+> Before moving onto ownership, it is important to discuss the difference between **heap** and **stack**. **Stack** is organized memory in which data is pushed and popped from the stack. It follows the *LIFO* (Last In First Out) sequence. Stack is *faster* and data types like integers, characters are stored on it. **Heap** is less organized when it comes to storing data. It is *slower* than stack. When it comes to storing data in heap, it needs to know how much space does it need to free up before storing the variable on the go, which is why it is slower. It needs to keep the pointer for memory too. Storing data types like vectors requires heaps.
 {: .prompt-tip }
 
 Following are the rules of ownership in Rust:
@@ -48,7 +49,7 @@ fn main() {
   let x = String::from("hello");
   takes_ownership(x);
 
-  // x has gone out of scope and invalid.
+  // x has gone out of scope and become invalid.
 }
 ```
 
@@ -74,3 +75,21 @@ Some rules for references:
 * Mutable reference go out of scope.
 * You cannot have an immutable reference and mutable reference to the same value at the same time.
 * Mutable reference allows you to change the value of the variable.
+
+## The Slice Type
+
+The Slice Type allows us to reference a contiguous sequence of elements in a collection. As it is a reference, it does not have ownership. Here is an example:
+
+```rust
+let string: String = String::from("Hello World");
+
+// Getting the slices
+println!("{}", &string[0..4]);
+println!("{}", &string[..3]);
+println!("{}", &string[7..]);
+
+// The above slices are of the &str type.
+```
+
+> By default, string literals (like `Hello World!`) are of type `&str`.
+{: .prompt-tip }

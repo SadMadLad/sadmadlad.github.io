@@ -72,7 +72,7 @@ theme_mode: dark
 img_cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar: ./assets/lib/rico.jpeg
+# avatar: assets/lib/rico.jpeg
 
 # boolean type, the global switch for TOC in posts.
 toc: true
